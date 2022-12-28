@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='datamarkin',
-    version='1.0.0.dev1',
+    version='1.0.1.dev1',
     description='Datamarkin python client',
     url='https://github.com/datamarkin/datamarkin-python',
     author='Datamarkin',
