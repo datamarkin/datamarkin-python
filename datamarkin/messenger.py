@@ -2,11 +2,7 @@ import requests
 import os
 import magic
 import json
-import config
-import datamarkin.core
-
-api_url = config.api_url
-api_key = config.api_key
+from .config import api_url, api_key
 
 
 def get_item(url):
