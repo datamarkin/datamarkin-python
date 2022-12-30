@@ -6,7 +6,6 @@ import datamarkin.messenger
 from .config import default_config
 
 
-
 def upload_file_to_dataset(file, dataset_id, url, labels=None):
     data = {"annotations": labels}
     upload_result = datamarkin.messenger.upload_file(file, payload=data)
@@ -98,19 +97,22 @@ class Project:
         """ Configuration keys are checked to avoid potential problems. """
         if self.configuration is None:
             self.configuration = default_config[self.type]
-            self.configuration["train"]["img_size"] = default_config[self.type]["train"]["img_size"][self.model_architecture]
+            self.configuration["train"]["img_size"] = default_config[self.type]["train"]["img_size"][
+                self.model_architecture]
         else:
             for key in list(default_config[self.type]["train"].keys()):
                 if key in list(self.configuration["train"].keys()):
                     if key == "img_size" and self.configuration["train"][key] is None:
-                        self.configuration["train"][key] = default_config[self.type]["train"][key][self.model_architecture]
+                        self.configuration["train"][key] = default_config[self.type]["train"][key][
+                            self.model_architecture]
                     elif self.configuration["train"][key] is None:
                         self.configuration["train"][key] = default_config[self.type]["train"][key]
                     else:
                         pass
                 else:
                     if key == "img_size":
-                        self.configuration["train"][key] = default_config[self.type]["train"][key][self.model_architecture]
+                        self.configuration["train"][key] = default_config[self.type]["train"][key][
+                            self.model_architecture]
                     else:
                         self.configuration["train"][key] = default_config[self.type]["train"][key]
 
