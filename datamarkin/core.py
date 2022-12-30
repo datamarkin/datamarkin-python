@@ -2,12 +2,14 @@ import time
 import numpy
 import json
 from multiprocessing.pool import ThreadPool as Pool
+import datamarkin.messenger
+from .config import default_config
 
 
 
 def upload_file_to_dataset(file, dataset_id, url, labels=None):
     data = {"annotations": labels}
-    upload_result = API.messenger.upload_file(file, payload=data)
+    upload_result = datamarkin.messenger.upload_file(file, payload=data)
     directus_files_id = upload_result['data']['id']
 
     if upload_result.__contains__('data'):
@@ -16,7 +18,7 @@ def upload_file_to_dataset(file, dataset_id, url, labels=None):
             "directus_files_id": directus_files_id
         }
         data = json.dumps(data)
-        API.messenger.create_item(url, data)
+        datamarkin.messenger.create_item(url, data)
     else:
         print('error')
 
@@ -26,9 +28,9 @@ class Project:
                  train, model_architecture, description, datasets, configuration, trainings, augmentation):
         self.id = project_id
         self.status = status
-        self.user_created = API.messenger.get_user_by_id(user_created)
+        self.user_created = datamarkin.messenger.get_user_by_id(user_created)
         self.date_created = date_created
-        self.user_updated = API.messenger.get_user_by_id(user_updated)
+        self.user_updated = datamarkin.messenger.get_user_by_id(user_updated)
         self.date_updated = date_updated
         self.name = name
         self.type = project_type
@@ -47,7 +49,7 @@ class Project:
             "description": self.description
         }
         data = json.dumps(data)
-        response = API.messenger.new_update_project(self.id, data)
+        response = datamarkin.messenger.new_update_project(self.id, data)
         return response
 
     def health(self):
@@ -130,7 +132,7 @@ class User:
         self.role = role
         self.token = token
         self.last_access = last_access
-        self.plan = API.messenger.get_plan_by_id(plan_id)
+        self.plan = datamarkin.messenger.get_plan_by_id(plan_id)
 
 
 class Dataset:
@@ -168,7 +170,7 @@ class Dataset:
     def create_dataset_list(datasets):
         dataset_list = []
         for dataset in datasets:
-            dataset = API.messenger.get_dataset_by_id(dataset)
+            dataset = datamarkin.messenger.get_dataset_by_id(dataset)
             dataset_list.append(dataset)
         return dataset_list
 
@@ -225,14 +227,14 @@ class Training:
             "vision_servers": self.vision_servers
         }
         data = json.dumps(data, cls=NumpyEncoder)
-        response = API.messenger.update_training(self.id, data)
+        response = datamarkin.messenger.update_training(self.id, data)
         return response
 
     @staticmethod
     def create_training_list(trainings):
         training_list = []
         for training in trainings:
-            training = API.messenger.get_training_by_id(training)
+            training = datamarkin.messenger.get_training_by_id(training)
             training_list.append(training)
         return training_list
 
