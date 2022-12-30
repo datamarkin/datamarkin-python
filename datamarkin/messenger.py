@@ -4,7 +4,6 @@ import magic
 import json
 import time
 from .config import api_url, api_key
-from tabulate import tabulate
 import datamarkin.core
 
 
@@ -220,25 +219,6 @@ def get_dataset_by_id(dataset_id):
     return dataset
 
 
-def update_dataset():
-    pass
-
-
-def get_file_by_id(dataset_id, page=1):
-    url = f"{api_url}/items/datasets_files?search={dataset_id}&limit={limit}&page={page}&access_token={api_key}"
-    response = get_item(url)
-    info_file = json.loads(response.content)
-    return info_file
-
-
-def get_project_datasets():
-    print('datasets:')
-
-
-def get_dataset_files():
-    print('datasets:')
-
-
 def download_file(file_id, file_dir):
     resp = get_file_request(file_id)
     get_write_file_with_requests(resp, file_dir, file_id)
@@ -383,16 +363,16 @@ def get_write_file_with_requests(r, file_dir, file_id, ext=None):
             f.write(r.content)
 
 
-def get_list_of_items(collection, max_results=500, items_per_request=100, deep="", filter="filter", fields=""):
+def get_list_of_items(collection, max_results=500, items_per_request=100, deep="", apply_filter="filter", fields=""):
     list_of_items = []
     offset = 0
     max_iterate = int(max_results / items_per_request)
 
     for i in range(0, max_iterate):
         if collection == "files":
-            url = f"{api_url}/{collection}?access_token={api_key}&limit={items_per_request}&offset={offset}&deep={deep}&{filter}&fields={fields}"
+            url = f"{api_url}/{collection}?access_token={api_key}&limit={items_per_request}&offset={offset}&deep={deep}&{apply_filter}&fields={fields}"
         else:
-            url = f"{api_url}/items/{collection}?access_token={api_key}&limit={items_per_request}&offset={offset}&deep={deep}&{filter}&fields={fields}"
+            url = f"{api_url}/items/{collection}?access_token={api_key}&limit={items_per_request}&offset={offset}&deep={deep}&{apply_filter}&fields={fields}"
 
         response = get_item(url)
         response_content = json.loads(response.content)['data']
