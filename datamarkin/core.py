@@ -49,7 +49,7 @@ class Project:
             "description": self.description
         }
         data = json.dumps(data)
-        response = datamarkin.messenger.new_update_project(self.id, data)
+        response = datamarkin.messenger.update_project_by_id(self.id, data)
         return response
 
     def health(self):

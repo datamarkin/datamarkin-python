@@ -254,14 +254,6 @@ def create_project(data):
     return project
 
 
-def update_project(project_id, data):
-    url = f"{api_url}/items/projects/{project_id}?access_token={api_key}"
-    data = data
-    response = update_item(url, data)
-    info_project = json.loads(response.content)
-    return info_project
-
-
 def get_user_by_id(user_id):
     if user_id:
         url = f"{api_url}/users/{user_id}?access_token={api_key}"
@@ -304,7 +296,7 @@ def get_plan_by_id(plan_id):
         return None
 
 
-def new_update_project(project_id, data):
+def update_project_by_id(project_id, data):
     url = f"{api_url}/items/projects/{project_id}?access_token={api_key}"
     response = update_item(url, data)
     info_project = json.loads(response.content)
