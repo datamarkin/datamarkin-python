@@ -149,26 +149,6 @@ def upload_file(path):
     return info_file
 
 
-def get_projects(items_per_request=-1, display=True):
-    url = f"{api_url}/items/projects?sort=sort,-date_created&limit={items_per_request}&page=1&access_token={api_key}"
-    response = get_item(url)
-    info_projects = json.loads(response.content)
-    num_projects = len(info_projects['data'])
-    data = []
-    col_names = ["Project Name", "Project ID", "Number of Class", "Project Type"]
-    for i in range(num_projects):
-        project_name = info_projects['data'][i]['name']
-        project_id = info_projects['data'][i]['id']
-        classes_info = info_projects['data'][i]['datasets']
-        project_type = info_projects['data'][i]['type']
-        data.append([project_name, project_id, len(classes_info), project_type])
-    if display:
-        print(tabulate(data, headers=col_names, tablefmt="pretty"))
-    else:
-        print('Number of Projects Found:::', num_projects)
-        return info_projects
-
-
 def get_project_by_id(project_id, deep={"datasets": {"_limit": 750}}):
     deep = json.dumps(deep)
     url = f"{api_url}/items/projects/{project_id}?access_token={api_key}&deep={deep}"
@@ -193,7 +173,7 @@ def get_project_by_id(project_id, deep={"datasets": {"_limit": 750}}):
     return project
 
 
-def new_get_projects(items_per_request=-1, sort="", search_filter=""):
+def get_projects(items_per_request=-1, sort="", search_filter=""):
     url = f"{api_url}/items/projects?sort={sort}&limit={items_per_request}&page=1&filter{search_filter}&access_token={api_key}"
     response = get_item(url)
 
