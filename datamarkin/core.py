@@ -151,7 +151,7 @@ class Dataset:
         self.images = images
 
     def upload_files_to_dataset(self, match_dict):
-        url = "https://api.datamarkin.com/items/datasets_files?access_token"
+        url = f"{datamarkin.messenger.api_url}/items/datasets_files?access_token={datamarkin.messenger.api_key}"
 
         files, labels = match_dict[self.name]['files'], match_dict[self.name]['labels']
 
