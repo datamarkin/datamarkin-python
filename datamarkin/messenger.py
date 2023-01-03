@@ -136,14 +136,14 @@ def upload_files(path_list):
     return info_files
 
 
-def upload_file(path):
+def upload_file(path, payload={}):
     url = f"{api_url}/files?access_token={api_key}"
 
     filename = os.path.basename(path)
     mime = magic.Magic(mime=True)
     file = {filename: (filename, open(path, 'rb'), mime.from_file(path), {'Expires': '0'})}
 
-    response = requests.post(url, files=file)
+    response = requests.post(url, files=file, data=payload)
     info_file = json.loads(response.content)
     return info_file
 
