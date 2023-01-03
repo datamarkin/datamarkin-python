@@ -226,7 +226,6 @@ def download_file(file_id, file_dir):
 
 def create_project(data):
     url = f"{api_url}/items/projects/?access_token={api_key}"
-    print(data)
     response = create_item(url, data)
     response = json.loads(response.content)
     project_id = response['data']['id']
