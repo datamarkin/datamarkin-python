@@ -156,7 +156,7 @@ class Dataset:
         files, labels = match_dict[self.name]['files'], match_dict[self.name]['labels']
 
         pool = Pool(processes=3)
-        if labels is []:
+        if labels == []:
             for file in files:
                 pool.apply_async(upload_file_to_dataset, (file, self.id, url,))
         else:
