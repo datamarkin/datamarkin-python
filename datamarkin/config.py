@@ -21,16 +21,16 @@ api_key = 'YOUR_API_KEY'
 api_url = 'https://api.datamarkin.com'
 
 default_img_size = {
-    'mobilenetv2': [224, 224, 3],
-    'mobilenetv3': [224, 224, 3],
-    'efficientnetb0': [224, 224, 3],
-    'efficientnetb1': [240, 240, 3],
-    'efficientnetb2': [260, 260, 3],
-    'efficientnetb3': [300, 300, 3],
-    'efficientnetb4': [380, 380, 3],
-    'efficientnetb5': [456, 456, 3],
-    'efficientnetb6': [528, 528, 3],
-    'efficientnetb7': [600, 600, 3]
+    'tf-mobilenetv2': [224, 224, 3],
+    'tf-mobilenetv3': [224, 224, 3],
+    'tf-efficientnetb0': [224, 224, 3],
+    'tf-efficientnetb1': [240, 240, 3],
+    'tf-efficientnetb2': [260, 260, 3],
+    'tf-efficientnetb3': [300, 300, 3],
+    'tf-efficientnetb4': [380, 380, 3],
+    'tf-efficientnetb5': [456, 456, 3],
+    'tf-efficientnetb6': [528, 528, 3],
+    'tf-efficientnetb7': [600, 600, 3]
 }
 
 # SETTINGS
